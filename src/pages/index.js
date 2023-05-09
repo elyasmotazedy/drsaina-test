@@ -4,8 +4,13 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-import { Typography } from "@mui/material";
 import Link from "next/link";
 
 export default function Home({ productList }) {
@@ -20,17 +25,42 @@ export default function Home({ productList }) {
       </Head>
 
       <Container maxWidth="sm">
-        <Grid container>
+        <Grid container spacing={2} sx={{ my: 3 }}>
           {productList &&
             productList.map(({ id, image, title, price }) => (
               <Grid item xs={6} sm={6} key={id}>
                 <Link href={`/product/${encodeURIComponent(id)}`}>
-                  <img
+                  <Card sx={{ maxWidth: 345 }}>
+                    <CardMedia
+                      component="img"
+                      src={image}
+                      height={"250"}
+                      alt={title}
+                      sx={{ objectFit: "contain" }}
+                    />
+                    <CardContent>
+                      <Stack justifyContent="space-between" flexDirection="row">
+                        <Box
+                          sx={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            width: "11rem",
+                          }}
+                        >
+                          <Typography noWrap>{title}</Typography>
+                        </Box>
+                        <Box>
+                          <Typography>${price}</Typography>
+                        </Box>
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                  {/* <img
                     src={image}
                     style={{ objectFit: "contain" }}
-                    width={"100%"}
+                    width={"60%"}
                     alt={title}
-                  />
+                  /> */}
                   {/* <Image
                     src={image}
                     fill
@@ -39,14 +69,14 @@ export default function Home({ productList }) {
 
                     alt={title}
                   /> */}
-                  <Stack justifyContent="space-between">
+                  {/* <Stack justifyContent="space-between" flexDirection="row">
                     <Box>
                       <Typography>{title}</Typography>
                     </Box>
                     <Box>
                       <Typography>${price}</Typography>
                     </Box>
-                  </Stack>
+                  </Stack> */}
                 </Link>
               </Grid>
             ))}
