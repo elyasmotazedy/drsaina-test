@@ -5,8 +5,8 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-import Layout from "@/layouts";
 import { Typography } from "@mui/material";
+import Link from "next/link";
 
 export default function Home({ productList }) {
   console.log(productList);
@@ -19,12 +19,12 @@ export default function Home({ productList }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>
-        <Container maxWidth="sm">
-          <Grid container>
-            {productList &&
-              productList.map(({ id, image, title, price }) => (
-                <Grid item xs={6} sm={6} key={id}>
+      <Container maxWidth="sm">
+        <Grid container>
+          {productList &&
+            productList.map(({ id, image, title, price }) => (
+              <Grid item xs={6} sm={6} key={id}>
+                <Link href={`/product/${encodeURIComponent(id)}`}>
                   <img
                     src={image}
                     style={{ objectFit: "contain" }}
@@ -44,14 +44,14 @@ export default function Home({ productList }) {
                       <Typography>{title}</Typography>
                     </Box>
                     <Box>
-                      <Typography>{price}</Typography>
+                      <Typography>${price}</Typography>
                     </Box>
                   </Stack>
-                </Grid>
-              ))}
-          </Grid>
-        </Container>
-      </Layout>
+                </Link>
+              </Grid>
+            ))}
+        </Grid>
+      </Container>
     </>
   );
 }
