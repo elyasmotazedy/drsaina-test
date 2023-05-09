@@ -30,13 +30,13 @@ export default function Home({ productList }) {
             productList.map(({ id, image, title, price }) => (
               <Grid item xs={6} sm={6} key={id}>
                 <Link href={`/product/${encodeURIComponent(id)}`}>
-                  <Card sx={{ maxWidth: 345 }}>
+                  <Card sx={{ maxWidth: 345 }} variant="outlined">
                     <CardMedia
                       component="img"
                       src={image}
-                      height={"250"}
+                      height={"250rem"}
                       alt={title}
-                      sx={{ objectFit: "contain" }}
+                      sx={{ objectFit: "contain", p: 1 }}
                     />
                     <CardContent>
                       <Stack justifyContent="space-between" flexDirection="row">
