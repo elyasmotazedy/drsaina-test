@@ -8,6 +8,7 @@ import {
   DialogTitle,
   Typography,
   Stack,
+  Container,
 } from "@mui/material";
 import Grow from "@mui/material/Grow";
 
@@ -20,7 +21,6 @@ const DialogModal = forwardRef(
       children,
       fullScreen = true,
       maxWidth = "xs",
-      dialogContentStyle,
       title,
       onClosed,
       noHeader = false,
@@ -50,30 +50,27 @@ const DialogModal = forwardRef(
 
     return (
       <Dialog
-        scroll="body"
+        scroll="paper"
         open={open}
         onClose={handleClose}
         fullScreen={fullScreen && fullScreenMode}
         fullWidth={true}
         maxWidth={maxWidth}
         TransitionComponent={Transition}
-        sx={{ ".MuiPaper-root ": { overflowY: "unset" } }}
       >
         {!noHeader ? (
           <CustomDialogTitle onClose={handleClose}>
             <Typography
-              component="h3"
-              variant="h5"
-              align="center"
+              // component="h3"
+              // variant="p"
+              // align="center"
               sx={{ width: "100%" }}
             >
               {title}
             </Typography>
           </CustomDialogTitle>
         ) : null}
-        <DialogContent sx={{ ...dialogContentStyle, overflowY: "unset" }}>
-          {children}
-        </DialogContent>
+        {children}
       </Dialog>
     );
   }
@@ -101,34 +98,36 @@ function CustomDialogTitle(props) {
   const theme = useTheme();
 
   return (
-    <DialogTitle
-      sx={{
-        m: 0,
-        p: 1,
-        borderBottom: `1px solid ${theme.palette.border}`,
-        //direction: 'rtl'
-      }}
-      {...other}
-    >
-      <Stack
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
+    <Container maxWidth="sm">
+      <DialogTitle
+        sx={{
+          m: 0,
+          p: 1,
+          borderBottom: `1px solid ${theme.palette.border}`,
+          //direction: 'rtl'
+        }}
+        {...other}
       >
-        {children}
-        {onClose ? (
-          <IconButton
-            aria-label="close"
-            onClick={onClose}
-            sx={{
-              color: theme.palette.text.primary,
-            }}
-          >
-            <Box sx={{}}>&times;</Box>
-          </IconButton>
-        ) : null}
-      </Stack>
-    </DialogTitle>
+        <Stack
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          {children}
+          {onClose ? (
+            <IconButton
+              aria-label="close"
+              onClick={onClose}
+              sx={{
+                color: theme.palette.text.primary,
+              }}
+            >
+              <Box sx={{}}>&times;</Box>
+            </IconButton>
+          ) : null}
+        </Stack>
+      </DialogTitle>
+    </Container>
   );
 }
 

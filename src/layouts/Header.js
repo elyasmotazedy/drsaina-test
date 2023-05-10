@@ -1,4 +1,6 @@
 import { useRef, useCallback } from "react";
+import { useShoppingCart } from "@/context/ShoppingCartContext";
+
 import AppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 
@@ -7,33 +9,20 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-// import FullScreenDialog from "@/components/ShopCard";
-import DialogModal from "@/components/Dialog";
 import ShopCart from "@/components/ShopCart";
-// import {
-//   AppBar,
-//   Box,
-//   Toolbar,
-//   IconButton,
-//   Typography,
-//   InputBase,
-//   Badge,
-//   MenuItem,
-//   Menu,
-// } from "@/components";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import Link from "next/link";
-import { Button, Container } from "@mui/material";
 
 const Header = () => {
+  const { cartQuantity } = useShoppingCart();
+
   const dialogRef = useRef(null);
   const handleOpen = useCallback(() => dialogRef.current?.show(), []);
-  const handleAction = () => {
-    console.log("dfsf");
-  };
+
   return (
     <CustomAppBar position="static" elevation={0}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -56,19 +45,13 @@ const Header = () => {
             <SearchIcon sx={{ color: "#000" }} />
           </IconButton>
           <IconButton size="small" aria-label="shop cart" onClick={handleOpen}>
-            <Badge badgeContent={4} color="error">
+            <Badge badgeContent={cartQuantity} color="error">
               <ShoppingBagIcon sx={{ color: "#000" }} />
             </Badge>
           </IconButton>
         </Box>
       </Toolbar>
-      <Container>
-        <ShopCart modalRef={dialogRef} />
-        {/* <Button onClick={handleOpen}>Open Dialog</Button> */}
-        {/* <DialogModal ref={dialogRef} onConfirm={handleAction} /> */}
-      </Container>
-      {/* <Example dialogRef /> */}
-      {/* <FullScreenDialog /> */}
+      <ShopCart modalRef={dialogRef} />
     </CustomAppBar>
   );
 };
