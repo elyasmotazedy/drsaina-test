@@ -8,7 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 // import FullScreenDialog from "@/components/ShopCard";
-import { ConfirmDialog } from "@/components/Dialog/test";
+import DialogModal from "@/components/Dialog";
+import ShopCart from "@/components/ShopCart";
 // import {
 //   AppBar,
 //   Box,
@@ -28,6 +29,11 @@ import Link from "next/link";
 import { Button, Container } from "@mui/material";
 
 const Header = () => {
+  const dialogRef = useRef(null);
+  const handleOpen = useCallback(() => dialogRef.current?.show(), []);
+  const handleAction = () => {
+    console.log("dfsf");
+  };
   return (
     <CustomAppBar position="static" elevation={0}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -49,33 +55,23 @@ const Header = () => {
           <IconButton size="small" aria-label="search products">
             <SearchIcon sx={{ color: "#000" }} />
           </IconButton>
-          <IconButton size="small" aria-label="shop cart">
+          <IconButton size="small" aria-label="shop cart" onClick={handleOpen}>
             <Badge badgeContent={4} color="error">
               <ShoppingBagIcon sx={{ color: "#000" }} />
             </Badge>
           </IconButton>
         </Box>
       </Toolbar>
-      <Example />
+      <Container>
+        <ShopCart modalRef={dialogRef} />
+        {/* <Button onClick={handleOpen}>Open Dialog</Button> */}
+        {/* <DialogModal ref={dialogRef} onConfirm={handleAction} /> */}
+      </Container>
+      {/* <Example dialogRef /> */}
       {/* <FullScreenDialog /> */}
     </CustomAppBar>
   );
 };
-
-export function Example() {
-  const dialogRef = useRef(null);
-  const handleOpen = useCallback(() => dialogRef.current?.open(), []);
-  const handleAction = () => {
-    console.log("dfsf");
-  };
-
-  return (
-    <Container>
-      <Button onClick={handleOpen}>Open Dialog</Button>
-      <ConfirmDialog ref={dialogRef} onConfirm={handleAction} />
-    </Container>
-  );
-}
 
 const CustomAppBar = styled(AppBar)(() => ({
   background: "#fff",

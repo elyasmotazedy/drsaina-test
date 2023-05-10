@@ -38,11 +38,6 @@ const DialogModal = forwardRef(
     const [open, setOpen] = useState(false);
     const handleClose = useCallback(
       (e, reason) => {
-        if (!canClose) {
-          return;
-        }
-        const ignoreClose = !backdropClose;
-        if (ignoreClose && reason && reason === "backdropClick") return;
         setOpen(false);
         if (typeof onClosed === "function") {
           setTimeout(() => {
@@ -50,23 +45,21 @@ const DialogModal = forwardRef(
           }, 200);
         }
       },
-      [backdropClose, canClose, onClosed]
+      [onClosed]
     );
 
     return (
       <Dialog
-        //ref={ref}
         scroll="body"
         open={open}
         onClose={handleClose}
         fullScreen={fullScreen && fullScreenMode}
         fullWidth={true}
         maxWidth={maxWidth}
-        //keepMounted
         TransitionComponent={Transition}
         sx={{ ".MuiPaper-root ": { overflowY: "unset" } }}
       >
-        {!noHeader && canClose ? (
+        {!noHeader ? (
           <CustomDialogTitle onClose={handleClose}>
             <Typography
               component="h3"

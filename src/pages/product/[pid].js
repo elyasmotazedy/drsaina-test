@@ -1,19 +1,20 @@
+import SEO from "@/components/SEO";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-// import Button from "@mui/material/Button";
 import Button from "@/components/overrides/Button";
+import Image from "next/image";
 
 const ProductPage = ({ product }) => {
   const { image, title, description, price } = product;
   return (
     <>
+      <SEO title={title} description={description} image={image} />
       <Container maxWidth="sm">
         <Box textAlign="center" mt={2}>
-          <img
+          <Image
             src={image}
             // style={{ objectFit: "contain" }}
             width={"300rem"}
