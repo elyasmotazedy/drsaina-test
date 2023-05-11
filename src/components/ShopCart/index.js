@@ -1,59 +1,52 @@
 import DialogModal from "@/components/Dialog";
+import { useShoppingCart } from "@/context/ShoppingCartContext";
+import CartItem from "./CartItems";
+import CustomButton from "@/components/overrides/Button";
+
 import {
   Button,
   CircularProgress,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Stack,
+  Typography,
+  Container,
 } from "@mui/material";
 
-const ShopCart = ({ modalRef, id }) => {
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const deleteHandler = async () => {
-    setDeleteLoading(true);
-    const { successful } = await deleteAddresses(id);
-    if (successful) {
-      dispatch(getUserAddresses());
-    } else {
-      alert("Err");
-    }
-    setDeleteLoading(false);
-  };
+const ShopCart = ({ modalRef }) => {
+  const { cartQuantity, cartItems } = useShoppingCart();
+  console.log(cartItems);
   return (
-    <DialogModal ref={modalRef} noHeader>
-      <DialogTitle id="confirm-dialog" sx={{ textAlign: "center" }}>
-        حذف آدرس
-      </DialogTitle>
-      <DialogContent sx={{ textAlign: "center" }}>
-        {" "}
-        آیا از حذف آدرس مطمئن هستید؟
+    <DialogModal ref={modalRef} title={`Your bag (${cartQuantity})`}>
+      <DialogContent>
+        {cartItems.map((item) => (
+          <CartItem key={item.id} {...item} />
+        ))}
       </DialogContent>
-
-      <DialogActions dir="rtl" sx={{ justifyContent: "center", pb: 2 }}>
-        {deleteLoading ? (
-          <Button variant="text" color="primary">
-            <CircularProgress size={15} />
-          </Button>
-        ) : (
-          <Button
-            variant="contained"
-            onClick={() => {
-              deleteHandler();
-            }}
-            color="error"
-          >
-            بله
-          </Button>
-        )}
-        <Button
-          variant="text"
-          onClick={() => {
-            modalRef.current.hide();
-          }}
-          color="secondary"
-        >
-          انصراف
-        </Button>
+      <DialogActions
+        sx={{ display: "block", py: 2, borderTop: "1px solid lightgrey" }}
+      >
+        <Container maxWidth="sm">
+          <Stack flexDirection="row" justifyContent="space-between">
+            <Typography>Total:</Typography>
+            <Typography>
+              $
+              {cartItems.reduce((total, cartItem) => {
+                return (
+                  total + (cartItem.product?.price || 0) * cartItem.quantity
+                );
+              }, 0)}
+            </Typography>
+          </Stack>
+          <Stack flexDirection="row" justifyContent="space-between">
+            <Typography color="gray">Shipping:</Typography>
+            <Typography color="gray">Free</Typography>
+          </Stack>
+          <CustomButton fullWidth sx={{ py: 1, mt: 3 }}>
+            go to checkout
+          </CustomButton>
+        </Container>
       </DialogActions>
     </DialogModal>
   );
