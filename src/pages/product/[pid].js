@@ -1,14 +1,14 @@
-import SEO from "@/components/SEO";
-import { useShoppingCart } from "@/context/ShoppingCartContext";
+import SEO from '@/components/SEO';
+import { useShoppingCart } from '@/context/ShoppingCartContext';
 
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import CustomButton from "@/components/overrides/Button";
-import Image from "next/image";
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import CustomButton from '@/components/overrides/Button';
+import Image from 'next/image';
 
 const ProductPage = ({ product }) => {
   const { image, title, description, price, id } = product;
@@ -20,7 +20,7 @@ const ProductPage = ({ product }) => {
     removeFromCart,
   } = useShoppingCart();
   const quantity = getItemQuantity(id);
-
+  console.log(quantity);
   return (
     <>
       <SEO title={title} description={description} image={image} />
@@ -28,9 +28,9 @@ const ProductPage = ({ product }) => {
         <Box textAlign="center" mt={2}>
           <Image
             src={image}
-            style={{ objectFit: "contain" }}
-            width={"300"}
-            height={"300"}
+            style={{ objectFit: 'contain' }}
+            width={'300'}
+            height={'300'}
             alt={title}
           />
         </Box>
@@ -59,11 +59,11 @@ const ProductPage = ({ product }) => {
               mt={3}
               mb={1}
             >
-              <CustomButton onClick={() => decreaseCartQuantity(id)}>
+              <CustomButton onClick={() => decreaseCartQuantity(product)}>
                 -
               </CustomButton>
               <Typography>{quantity}</Typography>
-              <CustomButton onClick={() => increaseCartQuantity(id)}>
+              <CustomButton onClick={() => increaseCartQuantity(product)}>
                 +
               </CustomButton>
             </Stack>

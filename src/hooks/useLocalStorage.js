@@ -18,11 +18,10 @@
 
 //   return [value, setValue];
 // }
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useLocalStorage = (key, initialState) => {
   const [value, setValue] = useState(initialState);
-  // useDebugValue(value);
 
   useEffect(() => {
     const item = localStorage.getItem(key);

@@ -1,16 +1,16 @@
-import Link from "next/link";
-import SEO from "@/components/SEO";
+import Link from 'next/link';
+import SEO from '@/components/SEO';
 
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 
-export default function Home({ productList }) {
+export default function Home({ productList, code, message }) {
   return (
     <>
       <SEO title="Dr Saina test" description="this is test task for Dr saina" />
@@ -24,17 +24,17 @@ export default function Home({ productList }) {
                     <CardMedia
                       component="img"
                       src={image}
-                      height={"250rem"}
+                      height={'250rem'}
                       alt={title}
-                      sx={{ objectFit: "contain", p: 1 }}
+                      sx={{ objectFit: 'contain', p: 1 }}
                     />
                     <CardContent>
                       <Stack justifyContent="space-between" flexDirection="row">
                         <Box
                           sx={{
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            width: "11rem",
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            width: '11rem',
                           }}
                         >
                           <Typography noWrap>{title}</Typography>
@@ -54,8 +54,18 @@ export default function Home({ productList }) {
   );
 }
 
+// export async function getServerSideProps() {
+//   const productListRes = await fetch('https://fakestoreapi.com/products');
+//   const errorCode = productListRes.ok ? false : productListRes.statusCode;
+//   const productList = await productListRes.json();
+
+//   return {
+//     props: { productList },
+//     error: { code: errorCode, message: 'Error!' },
+//   };
+// }
 export const getServerSideProps = async () => {
-  const productListRes = await fetch("https://fakestoreapi.com/products");
+  const productListRes = await fetch('https://fakestoreapi.com/products');
   const productList = await productListRes.json();
   return {
     props: {
