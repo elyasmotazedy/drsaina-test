@@ -1,19 +1,15 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import createEmotionServer from "@emotion/server/create-instance";
-// import theme, { roboto } from "@/theme";
-import theme from "@/theme";
-import createEmotionCache from "@/theme/createEmotionCache";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import createEmotionServer from '@emotion/server/create-instance';
+import theme, { lora } from '@/theme';
+import createEmotionCache from '@/theme/createEmotionCache';
 
 export default function MyDocument(props) {
   const { emotionStyleTags } = props;
 
   return (
-    <Html
-      lang="en"
-      // className={roboto.className}
-    >
+    <Html lang="en" className={lora.className}>
       <Head>
         <meta name="theme-color" content={theme.palette.primary.main} />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -47,7 +43,7 @@ MyDocument.getInitialProps = async (ctx) => {
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      data-emotion={`${style.key} ${style.ids.join(" ")}`}
+      data-emotion={`${style.key} ${style.ids.join(' ')}`}
       key={style.key}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}

@@ -1,14 +1,16 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Head from "next/head";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { CacheProvider } from "@emotion/react";
-import theme from "@/theme";
-import createEmotionCache from "@/theme/createEmotionCache";
-import Layout from "@/layouts";
-import { ShoppingCartProvider } from "@/context/ShoppingCartContext";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { CacheProvider } from '@emotion/react';
+import theme from '@/theme';
+import createEmotionCache from '@/theme/createEmotionCache';
+import Layout from '@/layouts';
+import { ShoppingCartProvider } from '@/context/ShoppingCartContext';
 const clientSideEmotionCache = createEmotionCache();
+
+import '../styles/globals.css';
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;

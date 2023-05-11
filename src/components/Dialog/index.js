@@ -1,26 +1,25 @@
-import { useState, forwardRef, useImperativeHandle, useCallback } from "react";
+import { useState, forwardRef, useImperativeHandle, useCallback } from 'react';
 
 import {
   Box,
   IconButton,
   Dialog,
-  DialogContent,
   DialogTitle,
   Typography,
   Stack,
   Container,
-} from "@mui/material";
-import Grow from "@mui/material/Grow";
+} from '@mui/material';
+import Grow from '@mui/material/Grow';
 
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const DialogModal = forwardRef(
   (
     {
       children,
       fullScreen = true,
-      maxWidth = "xs",
+      maxWidth = 'xs',
       title,
       onClosed,
       noHeader = false,
@@ -33,20 +32,17 @@ const DialogModal = forwardRef(
     }));
 
     const theme = useTheme();
-    const fullScreenMode = useMediaQuery(theme.breakpoints.down("sm"));
+    const fullScreenMode = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [open, setOpen] = useState(false);
-    const handleClose = useCallback(
-      (e, reason) => {
-        setOpen(false);
-        if (typeof onClosed === "function") {
-          setTimeout(() => {
-            onClosed();
-          }, 200);
-        }
-      },
-      [onClosed]
-    );
+    const handleClose = useCallback(() => {
+      setOpen(false);
+      if (typeof onClosed === 'function') {
+        setTimeout(() => {
+          onClosed();
+        }, 200);
+      }
+    }, [onClosed]);
 
     return (
       <Dialog
@@ -60,14 +56,7 @@ const DialogModal = forwardRef(
       >
         {!noHeader ? (
           <CustomDialogTitle onClose={handleClose}>
-            <Typography
-              // component="h3"
-              // variant="p"
-              // align="center"
-              sx={{ width: "100%" }}
-            >
-              {title}
-            </Typography>
+            <Typography sx={{ width: '100%' }}>{title}</Typography>
           </CustomDialogTitle>
         ) : null}
         {children}
@@ -76,21 +65,11 @@ const DialogModal = forwardRef(
   }
 );
 
-const Transition = forwardRef(
-  (props, ref) => (
-    <Grow
-      //style={{ transformOrigin: '50% 50% 50%' }}
-      ref={ref}
-      {...props}
-      {...(props.in ? { timeout: 300 } : {})}
-      //timeout={2000}
-    />
-  )
-  //return <Zoom timeout={500} ref={ref} {...props} />;
-  //return <Fade timeout={500} ref={ref} {...props} />;
-);
+const Transition = forwardRef((props, ref) => (
+  <Grow ref={ref} {...props} {...(props.in ? { timeout: 300 } : {})} />
+));
 
-Transition.displayName = "Transition";
+Transition.displayName = 'Transition';
 
 function CustomDialogTitle(props) {
   const { children, onClose, ...other } = props;
@@ -131,5 +110,5 @@ function CustomDialogTitle(props) {
   );
 }
 
-DialogModal.displayName = "DialogModal";
+DialogModal.displayName = 'DialogModal';
 export default DialogModal;
