@@ -54,16 +54,7 @@ export default function Home({ productList, code, message }) {
   );
 }
 
-// export async function getServerSideProps() {
-//   const productListRes = await fetch('https://fakestoreapi.com/products');
-//   const errorCode = productListRes.ok ? false : productListRes.statusCode;
-//   const productList = await productListRes.json();
 
-//   return {
-//     props: { productList },
-//     error: { code: errorCode, message: 'Error!' },
-//   };
-// }
 export const getServerSideProps = async () => {
   const productListRes = await fetch('https://fakestoreapi.com/products');
   const productList = await productListRes.json();
